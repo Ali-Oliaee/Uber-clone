@@ -1,5 +1,5 @@
 import React from 'react';
-import HomeScreen from './screens/Home';
+import HomeScreen from '@screens/Home';
 
 function App(): JSX.Element {
   return <HomeScreen />;

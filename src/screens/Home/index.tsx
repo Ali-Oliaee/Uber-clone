@@ -1,8 +1,9 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import LocationBanner from '../../components/LocationBanner';
+import LocationBanner from '@components/LocationBanner';
 import styles from './styles';
-import CarICon from '../../assets/images/carIcon';
+import CarICon from '@assets/images/carIcon';
+import BoxIcon from '@assets/images/boxIcon';
 
 const HomeScreen: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const HomeScreen: React.FC = () => {
       <LocationBanner />
       <Text>Home screen</Text>
       <CarICon />
+      <BoxIcon />
     </View>
   );
 };
