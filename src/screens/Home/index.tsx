@@ -6,7 +6,7 @@ import CarICon from '@assets/images/carIcon';
 import BoxIcon from '@assets/images/boxIcon';
 import RecentCard from '@components/RecentCard';
 
-const HomeScreen: React.FC = () => {
+const HomeScreen: React.FC<NavigationProp> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <LocationBanner />
@@ -24,7 +24,9 @@ const HomeScreen: React.FC = () => {
           <Text>Fast Ride</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.mapButton}>
+      <TouchableOpacity
+        style={styles.mapButton}
+        onPress={() => navigation.navigate('Map')}>
         <Text style={styles.mapButtonText}>Enter pickup point</Text>
       </TouchableOpacity>
       <View style={styles.recentContainer}>
