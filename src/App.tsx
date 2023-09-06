@@ -1,7 +1,12 @@
 import React from 'react';
-import HomeScreen from '@screens/Home';
+import {NavigationContainer} from '@react-navigation/native';
+import MainNavigator from './navigation';
 
 function App(): JSX.Element {
-  return <HomeScreen />;
+  return (
+    <NavigationContainer>
+      <MainNavigator />
+    </NavigationContainer>
+  );
 }
 export default App;
