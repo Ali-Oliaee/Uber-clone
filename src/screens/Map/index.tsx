@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   StatusBar,
   StyleSheet,
@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Mapbox, {UserLocation} from '@rnmapbox/maps';
+import Mapbox, {Location, UserLocation, Camera} from '@rnmapbox/maps';
 
 Mapbox.setWellKnownTileServer('Mapbox');
 Mapbox.setAccessToken(
@@ -14,6 +14,24 @@ Mapbox.setAccessToken(
 );
 
 const MapScreen: React.FC<NavigationProp> = ({navigation}) => {
+  const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
+  const cameraRef = useRef<any>(null);
+
+  const transferToCurrentLocation = () => {
+    if (currentLocation) {
+      cameraRef?.current?.setCamera({
+        centerCoordinate: [
+          currentLocation.coords.longitude,
+          currentLocation.coords.latitude,
+        ],
+      });
+    }
+  };
+
+  useEffect(() => {
+    transferToCurrentLocation();
+  }, [currentLocation]);
+
   return (
     <View style={styles.page}>
       <StatusBar
@@ -23,10 +41,13 @@ const MapScreen: React.FC<NavigationProp> = ({navigation}) => {
       />
       <View style={styles.container}>
         <Mapbox.MapView style={styles.map}>
-          <UserLocation minDisplacement={1} />
+          <Camera ref={cameraRef} />
+          <UserLocation minDisplacement={1} onUpdate={setCurrentLocation} />
         </Mapbox.MapView>
       </View>
-      <TouchableOpacity style={styles.hereButton}>
+      <TouchableOpacity
+        style={styles.hereButton}
+        onPress={transferToCurrentLocation}>
         <Text />
       </TouchableOpacity>
     </View>
