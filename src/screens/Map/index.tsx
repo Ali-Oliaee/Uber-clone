@@ -6,7 +6,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Mapbox, {Location, UserLocation, Camera} from '@rnmapbox/maps';
+import Mapbox, {
+  Location,
+  UserLocation,
+  Camera,
+  PointAnnotation,
+} from '@rnmapbox/maps';
 
 Mapbox.setWellKnownTileServer('Mapbox');
 Mapbox.setAccessToken(
@@ -15,6 +20,7 @@ Mapbox.setAccessToken(
 
 const MapScreen: React.FC<NavigationProp> = ({navigation}) => {
   const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
+  const [markedLocation, setMarkedLocation] = useState<any>(null);
   const cameraRef = useRef<any>(null);
 
   const transferToCurrentLocation = () => {
@@ -26,6 +32,11 @@ const MapScreen: React.FC<NavigationProp> = ({navigation}) => {
         ],
       });
     }
+  };
+
+  const markLocation = point => {
+    const selectedPoint = point.geometry.coordinates;
+    setMarkedLocation(selectedPoint);
   };
 
   useEffect(() => {
@@ -40,9 +51,10 @@ const MapScreen: React.FC<NavigationProp> = ({navigation}) => {
         barStyle="dark-content"
       />
       <View style={styles.container}>
-        <Mapbox.MapView style={styles.map}>
+        <Mapbox.MapView style={styles.map} onPress={markLocation}>
           <Camera ref={cameraRef} />
           <UserLocation minDisplacement={1} onUpdate={setCurrentLocation} />
+          <PointAnnotation coordinate={markedLocation ?? [0, 0]} />
         </Mapbox.MapView>
       </View>
       <TouchableOpacity
