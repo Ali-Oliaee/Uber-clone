@@ -11,7 +11,7 @@ const MainNavigator = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
       <Stack.Screen name="Map" component={MapScreen} />
     </Stack.Navigator>
   );
