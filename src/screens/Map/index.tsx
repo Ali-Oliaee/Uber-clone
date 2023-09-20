@@ -51,7 +51,11 @@ const MapScreen: React.FC<NavigationProp> = ({navigation}) => {
         barStyle="dark-content"
       />
       <View style={styles.container}>
-        <Mapbox.MapView style={styles.map} onPress={markLocation}>
+        <Mapbox.MapView
+          style={styles.map}
+          onPress={markLocation}
+          logoEnabled={false}
+          attributionEnabled={false}>
           <Camera ref={cameraRef} />
           <UserLocation minDisplacement={1} onUpdate={setCurrentLocation} />
           <PointAnnotation coordinate={markedLocation ?? [0, 0]} />
